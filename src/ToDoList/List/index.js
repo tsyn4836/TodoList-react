@@ -3,15 +3,12 @@ import PropTypes from 'prop-types'
 
 class List extends Component {
 
-	// shouldComponentUpdate(nextProps) {
-	// 	// console.log("before", this.props.list.length)
-	// 	// console.log("after", nextProps.list.length)
-	// 	// console.log(nextProps.list.length !== this.props.list.length)
-	// 	if (nextProps.list.length !== this.props.list.length) {
-	// 		return true
-	// 	}
-	// 	return false
-	// }
+	shouldComponentUpdate(nextProps) {
+		if (nextProps.list.length !== this.props.list.length) {
+			return true
+		}
+		return false
+	}
 
 	render() {
 		const { handelItemClick, list } = this.props

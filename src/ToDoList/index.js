@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import Clock from './Clock/'
 import Input from './Input/'
@@ -16,28 +16,31 @@ class ToDoList extends Component {
 		this.handelFormSubmit = this.handelFormSubmit.bind(this)
 		this.handelInputChange = this.handelInputChange.bind(this)
 		this.handelItemClick = this.handelItemClick.bind(this)
+
+		this.inputElement = React.createRef()
 	}
 
 	render() {
 		return (
-			<Fragment>
+			<>
 				<Login />
 				<Clock />
 				<Input
 					inputValue={this.state.inputValue}
 					handelInputChange={this.handelInputChange}
 					handelFormSubmit={this.handelFormSubmit}
+					inputRef={this.inputElement}
 				/>
 				<List
 					list={this.state.list}
 					handelItemClick={this.handelItemClick}
 				/>
-			</Fragment>
+			</>
 		)
 	}
 
-	// ajax请求服务器数据
 	componentDidMount() {
+		// ajax请求服务器数据
 		axios.get('http://localhost:9999/api/todolist')
 			.then((res) => {
 				this.setState(() => ({
@@ -45,8 +48,10 @@ class ToDoList extends Component {
 				}))
 			})
 			.catch(() => console.log("获取远程数据失败"))
+		
+			this.inputElement.current.focus()
+		
 	}
-
 	handelInputChange(e) {
 		let inputValue = e.target.value
 		this.setState(() => ({
@@ -57,17 +62,20 @@ class ToDoList extends Component {
 	handelFormSubmit(e) {
 		e.preventDefault()
 		if (!this.state.inputValue) return
-		let newItem = { id: Date.now(), item: this.state.inputValue }
-		this.setState((prevState) => ({
-			list: [...prevState.list, newItem],
+		let newItem = {
+			id: Date.now(),
+			item: this.state.inputValue
+		}
+		this.setState((state) => ({
+			list: [...state.list, newItem],
 			inputValue: ""
 		}))
-		e.target.focus()
+		this.inputElement.current.focus()
 	}
 
 	handelItemClick(index) {
-		this.setState((prevState) => {
-			let list = prevState.list
+		this.setState((state) => {
+			let list = [...state.list]
 			list.splice(index, 1)
 			return { list }
 		})

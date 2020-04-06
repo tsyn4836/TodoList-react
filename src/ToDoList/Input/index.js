@@ -12,8 +12,9 @@ function Input(props) {
 				id="input"
 				value={inputValue}
 				onChange={handelInputChange}
+				ref={props.inputRef}
 			/>
-			<button>提交</button>
+			<button type="submit">提交</button>
 		</form>
 	)
 }
