@@ -9,8 +9,12 @@ module.exports = {
     { id: 1, item: 'jquery' },
     { id: 2, item: 'vue' },
     { id: 3, item: 'react' },
-  ]
-  ,
+  ],
+  '/api/todolist2': [
+    'jquery',
+    'vue',
+    'react',
+  ],
   // 指定请求方式为post
   'post /api/changeInfo': {
     message: 'success',
