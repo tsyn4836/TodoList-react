@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 import store from './store/'
 import TodoListUI from './TodoListUI';
 import {
-	getTodoList,
+	getInitList,
 	getChangeInputValueAction,
 	getAddTodoItemAction,
 	getDeleteTodoItemAction
@@ -47,7 +47,7 @@ class TodoList extends Component {
 		// 		store.dispatch(action)
 		// 	})
 
-		const action = getTodoList()
+		const action = getInitList()
 		store.dispatch(action)
 	}
 
